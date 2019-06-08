@@ -2,7 +2,9 @@ package projekty.Kalkulator.walut.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import projekty.Kalkulator.walut.repository.CurrencyRepository;
 import projekty.Kalkulator.walut.servis.CurrencyServis;
@@ -41,6 +43,16 @@ public class CurrencyCalculatorController {
         String json4 = currencyServis.getJson("SEK");
         String json5 = currencyServis.getJson("EUR");
         return "json test";
+    }
+
+
+    @RequestMapping("/testParam")
+//    @ResponseBody
+    private String testParam( Model model, @RequestParam(name="EUR") Double EUR ) {
+        System.out.println(EUR);
+        model.addAttribute("EUR",EUR);
+//        return "My param = " + EUR;
+        return "forward:/jsp";
     }
 
 
