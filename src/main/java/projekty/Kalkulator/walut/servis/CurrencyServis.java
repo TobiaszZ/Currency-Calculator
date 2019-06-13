@@ -20,10 +20,10 @@ public class CurrencyServis {
     CurrencyRepository currencyRepository;
 
 
-    public String getJson(String code) {
+    public Double getJson(String code) {
 
-        String url = "http://api.nbp.pl/api/exchangerates/rates/A/"+code+"?format=json";
-
+        String url = "http://api.nbp.pl/api/exchangerates/rates/A/" + code + "?format=json";
+        Double currencyValue = null;
         try {
             URL obj = new URL(url);
             HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
@@ -41,7 +41,7 @@ public class CurrencyServis {
             JSONObject resp = new JSONObject(response.toString());
             JSONArray rates = resp.getJSONArray("rates");
             JSONObject currency = new JSONObject(rates.get(0).toString());
-            Double currencyValue = currency.getDouble("mid");
+            currencyValue = currency.getDouble("mid");
 
             System.out.println(resp.getString("currency"));
             System.out.println("value: " + currencyValue);
@@ -50,15 +50,33 @@ public class CurrencyServis {
             System.out.println("Request URL: " + url);
             System.out.println("Response code: " + responseCode);
 
-//            System.out.println("rates   " + rates);
+            System.out.println("rates   " + rates);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
 
-        return url;
+        return currencyValue;
     }
 
+
+    public boolean validate(String eur, String sek, String nok, String dkk) {
+        try {
+            double dEur = Double.parseDouble(eur);
+            double dSek = Double.parseDouble(sek);
+            double dNok = Double.parseDouble(nok);
+            double dDkk = Double.parseDouble(dkk);
+            double result = dEur * dSek * dNok * dDkk;
+            if (dEur < 0&&dSek< 0&&dNok< 0&&dDkk< 0) {
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+
+    }
 
 }

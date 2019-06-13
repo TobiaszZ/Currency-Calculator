@@ -10,12 +10,11 @@
 <div class="container" align="center">
  <h3  >Currency Calculator</h3>
 
- <form action="/testParam" method = "post" >
+ <form action="" method = "post" >
    <div class="form-group" >
         <label for="EUR">Euro (EUR)</label>
         <input type="" class="form-control" name="EUR" id="EUR" default="0" style="width: 300px;">
    </div>
-
     <div class="form-group">
         <label for="EUR">Korona szwedzka (SEK)</label>
         <input type="" class="form-control" name="SEK" id="SEK"  default="0"  style="width: 300px;">
@@ -34,13 +33,12 @@
    <button type="submit" class="btn btn-primary">Oblicz</button>
 
  </form>
-    <div>
-        Suma pieniędzy w kasie wynosi ${param.EUR} zł.
 
 
-        <option value="1" ${param.EUR} ==  null  ? ' Suma pieniędzy w kasie wynosi ${param.EUR} zł.' : ''}></option> //to nie dziła //
+    <div align="center">
 
-
+        ${empty sum ? "" : " Suma pieniędzy w kasie wynosi "} ${sum}  ${empty sum ? "" : " zł "}
+        ${error}
     </div>
 
 </div>
